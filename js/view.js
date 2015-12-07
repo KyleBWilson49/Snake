@@ -50,6 +50,7 @@ View.prototype.runGame = function () {
 View.prototype.takeTurn = function () {
   this.board.snake.move();
   this.outOfBounds();
+  this.collide();
   this.eatApple();
   this.placeApple();
   this.drawBoard();
@@ -67,9 +68,7 @@ View.prototype.outOfBounds = function () {
   }
 
   if (!inBounds) {
-    alert("Game Over!");
-    clearInterval(this.interval);
-    this.interval = 0;
+    this.gameOver();
   }
 };
 
@@ -78,20 +77,16 @@ View.prototype.drawBoard = function () {
   oldSnakes.forEach(function (el) {
     $(el).removeClass('snake');
   });
+  // var snake = this.board.snake.segments;
+  // var snakeLength = snake.length;
+  // var tail = snake[snakeLength - 1];
+  // var $tailElement = $("li[data-pos='" + tail +"']");
+  // $tailElement.removeClass('snake');
 
   var currentSnake = this.board.snake.segments;
   var squares =[].slice.call($('li'));
   var that = this;
 
-  // squares.forEach(function (square) {
-  //   currentSnake.forEach(function (pos) {
-  //     if (pos.toString() == $(square).data('pos')) {
-  //       $(square).addClass('snake');
-  //     } else if (that.applePos.toString() == $(square).data('pos')) {
-  //       $(square).addClass('apple');
-  //     }
-  //   });
-  // });
   var $applePos = $("li[data-pos='" + that.applePos.toString() +"']");
   $applePos.addClass('apple');
 
@@ -99,6 +94,10 @@ View.prototype.drawBoard = function () {
     var $snakePos = $("li[data-pos='" + pos +"']");
     $snakePos.addClass('snake');
   });
+
+  // var pos = this.board.snake.segments[0]
+  // var $snakePos = $("li[data-pos='" + pos +"']");
+  // $snakePos.addClass('snake');
 };
 
 View.prototype.placeApple = function () {
@@ -116,6 +115,22 @@ View.prototype.eatApple = function () {
     this.board.snake.segments.push(this.applePos);
     this.applePos = 0;
   }
+};
+
+View.prototype.collide = function () {
+  var headPos = this.board.snake.segments[0];
+  var snake = this.board.snake.segments;
+  for (var i = 1; i < snake.length; i++) {
+    if (headPos[0] === snake[i][0] && headPos[1] === snake[i][1]) {
+      this.gameOver();
+    }
+  }
+};
+
+View.prototype.gameOver = function () {
+  alert("Game Over!");
+  clearInterval(this.interval);
+  this.interval = 0;
 };
 
 module.exports = View;
