@@ -27,3 +27,20 @@ li {
 .apple {
   background: red;
 }
+
+div {
+  font-size: 40px;
+  position: fixed;
+  z-index: 10;
+  background: white;
+}
+
+.div1 {
+  top: 100px;
+  left: 450px;
+}
+
+.div2 {
+  top: 150px;
+  left: 370px;
+}

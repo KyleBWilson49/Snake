@@ -14,7 +14,7 @@ Snake.prototype.move = function () {
   var head = this.segments[0];
   var moveDir = directions[this.dir];
   var newPos = [head[0] + moveDir[0], head[1] + moveDir[1]];
-  
+
   this.segments.unshift(newPos);
   this.segments.pop();
 };

@@ -39,6 +39,8 @@ View.prototype.handleKeyPress = function(e) {
   var key = e.which;
   if (key === 112) {
     this.pauseGame();
+  } else if (key === 13) {
+    location.reload();
   } else {
     this.board.snake.turn(directions[key]);
   }
@@ -56,10 +58,12 @@ View.prototype.pauseGame = function () {
   if (this.paused) {
     this.paused = false;
     this.runGame();
+    $('.snake-game').removeAttr('id')
   } else {
     clearInterval(this.interval);
     this.interval = 0;
     this.paused = true;
+    $('.snake-game').attr('id', 'paused')
   }
 };
 
@@ -144,7 +148,8 @@ View.prototype.collide = function () {
 };
 
 View.prototype.gameOver = function () {
-  alert("Game Over!");
+  this.$el.append($('<div class="div1">Game Over!<div>'))
+  this.$el.append($("<div class='div2'>Press Enter To Restart<div>"))
   clearInterval(this.interval);
   this.interval = 0;
 };
