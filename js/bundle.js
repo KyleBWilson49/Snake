@@ -62,6 +62,7 @@
 	  this.$el = $el;
 	  this.turn = 0;
 	  this.applePos = 0;
+	  this.paused = false;
 	  this.board = board;
 	  this.setupBoard();
 	  this.bindEvents();
@@ -96,7 +97,11 @@
 	    100: 'E'
 	  };
 	  var key = e.which;
-	  this.board.snake.turn(directions[key]);
+	  if (key === 112) {
+	    this.pauseGame();
+	  } else {
+	    this.board.snake.turn(directions[key]);
+	  }
 	};
 	
 	View.prototype.runGame = function () {
@@ -104,7 +109,18 @@
 	  this.interval = setInterval(function () {
 	    view.takeTurn();
 	  }, 100);
-	  this.interval();
+	  this.interval;
+	};
+	
+	View.prototype.pauseGame = function () {
+	  if (this.paused) {
+	    this.paused = false;
+	    this.runGame();
+	  } else {
+	    clearInterval(this.interval);
+	    this.interval = 0;
+	    this.paused = true;
+	  }
 	};
 	
 	View.prototype.takeTurn = function () {
