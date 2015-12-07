@@ -20,12 +20,23 @@ li {
   outline: 1px solid black;
 }
 
-.snake {
+.snake1 {
   background: green;
+}
+
+.snake2 {
+  background: blue;
 }
 
 .apple {
   background: red;
+}
+
+.points {
+  position: relative;
+  margin-left: 40px;
+  background: white;
+  font-size: 20px;
 }
 
 div {
