@@ -257,6 +257,10 @@
 	      this.gameOver();
 	    }
 	  }
+	  if (headPos[0] === headPos2[0] && headPos[1] === headPos2[1]) {
+	    this.gameOver();
+	  }
+	
 	  for (var i = 1; i < snake2.length; i++) {
 	    if (headPos[0] === snake2[i][0] && headPos[1] === snake2[i][1]) {
 	      this.gameOver();

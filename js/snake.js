@@ -1,6 +1,7 @@
 function Snake (direction, segments) {
   this.dir = direction;
   this.segments = segments;
+  this.turning = false;
 }
 
 Snake.prototype.move = function () {
@@ -17,16 +18,20 @@ Snake.prototype.move = function () {
 
   this.segments.unshift(newPos);
   this.segments.pop();
+  this.turning = false;
 };
 
 Snake.prototype.turn = function (newDirection) {
   if (this.dir === 'N' && newDirection === 'S' ||
     this.dir === 'S' && newDirection === 'N' ||
     this.dir === 'W' && newDirection === 'E' ||
-    this.dir === 'E' && newDirection === 'W') {
+    this.dir === 'E' && newDirection === 'W') ||
+    this.turning {
       return;
     }
+
   this.dir = newDirection;
+  this.turning = true;
 };
 
 module.exports = Snake;
