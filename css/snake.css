@@ -48,10 +48,15 @@ div {
 
 .div1 {
   top: 100px;
-  left: 450px;
+  left: 400px;
+}
+
+.winner {
+  top: 150px;
+  left: 400px;
 }
 
 .div2 {
-  top: 150px;
-  left: 370px;
+  top: 200px;
+  left: 400px;
 }

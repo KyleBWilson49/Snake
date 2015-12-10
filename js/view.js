@@ -79,7 +79,7 @@ View.prototype.pauseGame = function () {
 
 View.prototype.takeTurn = function () {
   this.board.snake.move();
-  this.board.snake2.move();
+  // this.board.snake2.move();
   this.outOfBounds();
   this.collide();
   this.eatApple();
@@ -89,25 +89,31 @@ View.prototype.takeTurn = function () {
 };
 
 View.prototype.outOfBounds = function () {
-  var inBounds = true;
+  var inBounds1 = true;
   var headPosition = this.board.snake.segments[0];
 
   if (headPosition[0] > 29 || headPosition[0] < 0) {
-    inBounds = false
+    inBounds1 = false
   } else if (headPosition[1] > 39 || headPosition[1] < 0) {
-    inBounds = false
+    inBounds1 = false
   }
 
+
+  var inBounds2 = true
   var headPosition = this.board.snake2.segments[0];
 
   if (headPosition[0] > 29 || headPosition[0] < 0) {
-    inBounds = false
+    inBounds2 = false
   } else if (headPosition[1] > 39 || headPosition[1] < 0) {
-    inBounds = false
+    inBounds2 = false
   }
 
-  if (!inBounds) {
-    this.gameOver();
+  if (!inBounds2 && !inBounds1) {
+    this.gameOver("You Both Lose!")
+  } else if (!inBounds1) {
+    this.gameOver("Player 1 Loses!");
+  } else if (!inBounds2) {
+    this.gameOver("Player 2 Loses!");
   }
 };
 
@@ -189,28 +195,29 @@ View.prototype.collide = function () {
 
   for (var i = 1; i < snake.length; i++) {
     if (headPos2[0] === snake[i][0] && headPos2[1] === snake[i][1]) {
-      this.gameOver();
+      this.gameOver("Player 2 Loses!");
     }
     if (headPos[0] === snake[i][0] && headPos[1] === snake[i][1]) {
-      this.gameOver();
+      this.gameOver("Player 1 Loses!");
     }
   }
   if (headPos[0] === headPos2[0] && headPos[1] === headPos2[1]) {
-    this.gameOver();
+    this.gameOver("Both Of You Lose!");
   }
 
   for (var i = 1; i < snake2.length; i++) {
     if (headPos[0] === snake2[i][0] && headPos[1] === snake2[i][1]) {
-      this.gameOver();
+      this.gameOver("Player 1 Loses!");
     }
     if (headPos2[0] === snake2[i][0] && headPos2[1] === snake2[i][1]) {
-      this.gameOver();
+      this.gameOver("Player 2 Loses!");
     }
   }
 };
 
-View.prototype.gameOver = function () {
+View.prototype.gameOver = function (winner) {
   this.$el.append($('<div class="div1">Game Over!<div>'))
+  this.$el.append($("<div class='winner'>" + winner + "<div>"))
   this.$el.append($("<div class='div2'>Press Enter To Restart<div>"))
   clearInterval(this.interval);
   this.interval = 0;

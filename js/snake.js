@@ -25,8 +25,8 @@ Snake.prototype.turn = function (newDirection) {
   if (this.dir === 'N' && newDirection === 'S' ||
     this.dir === 'S' && newDirection === 'N' ||
     this.dir === 'W' && newDirection === 'E' ||
-    this.dir === 'E' && newDirection === 'W') ||
-    this.turning {
+    this.dir === 'E' && newDirection === 'W' ||
+    this.turning) {
       return;
     }
 
